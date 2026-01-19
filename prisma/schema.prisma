@@ -29,4 +29,16 @@ model Users {
   role      Roles    @default(READER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  posts     Posts[]
+}
+
+model Posts {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String   @db.Text
+  published Boolean  @default(false)
+  authorId  Int
+  author    Users    @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
